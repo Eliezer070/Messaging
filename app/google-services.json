@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "212305017669",
+    "project_id": "fir-lite-c7a86",
+    "storage_bucket": "fir-lite-c7a86.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212305017669:android:566b350bca29c156b55c2c",
+        "android_client_info": {
+          "package_name": "com.eas.pushnotificationdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXY11Ekdt7TDUzYZVb70wmXjgcmXTVKBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212305017669:android:ab98828a0a2b6fd0b55c2c",
+        "android_client_info": {
+          "package_name": "com.example.testone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXY11Ekdt7TDUzYZVb70wmXjgcmXTVKBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
