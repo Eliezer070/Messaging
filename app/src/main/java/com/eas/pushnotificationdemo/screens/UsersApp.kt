@@ -5,8 +5,10 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,137 +45,46 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.logEvent
 
 @Composable
-fun UsersApp( modifier: Modifier = Modifier) {
-    var email by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var mobileNumber by remember { mutableStateOf("") }
-    val mContext = LocalContext.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-
+fun UsersApp(showSpecialFeature: Boolean, modifier: Modifier = Modifier) {
+    // Get an instance of FirebaseAnalytics
+    val firebaseAnalytics = Firebase.analytics
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Main card Content for Register
-        ElevatedCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()) // Add verticalScroll modifier here
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .padding(bottom = 8.dp)
-            ) {
-
-                Text(
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp),
-                    text = "Register",
-                    fontSize = 25.sp
-                )
-
-                // Name Field
-                OutlinedTextField(
-                    value = name, // Add a variable for name
-                    onValueChange = { name = it },
-                    label = { Text("Name") },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                )
-
-                OutlinedTextField(
-                    value = mobileNumber,
-                    onValueChange = { mobileNumber = it },
-                    label = { Text("Mobile Number") },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                )
-
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                )
-                Column(
-                    modifier = Modifier.fillMaxWidth().wrapContentSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Button(
-                        onClick = {
-                            if (name.isEmpty()) {
-                                Toast.makeText(mContext, "Name is Empty", Toast.LENGTH_SHORT).show()
-                            } else if (mobileNumber.isEmpty()) {
-                                Toast.makeText(mContext, "Mobile No. is Empty", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else if (email.isEmpty()) {
-                                Toast.makeText(mContext, "Email is Empty", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-
-                                name = ""
-                                email = ""
-                                mobileNumber = ""
-                                keyboardController?.hide()
-                            }
-                        },
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Text("Registar")
-                    }
-                }
-            }
+        // El texto que se mostrará/ocultará con Remote Config
+        if (showSpecialFeature) {
+            Text(text = "¡Funcionalidad especial activada desde Remote Config!")
         }
-        val gradientColors = listOf(Color.Cyan, Color.Magenta, Color.Yellow /*...*/)
-        //Columna para ver los resultados de la consulta
-        Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Display the list of friends
-            LazyColumn(
-                modifier = Modifier.weight(.7F),
-                verticalArrangement = Arrangement.Center
-            ) {
-                /*items(usersList) { user ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentSize()
-                            .padding(vertical = 8.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize().padding(16.dp)
-                        ) {
-                            Text(modifier= Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Left, color = Color.White, fontSize = 20.sp,
-                                text = "Name: " + user.name)
-                            Text(modifier= Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Left, color = Color.White, fontSize = 20.sp, fontStyle = FontStyle.Italic,
-                                text = "Email: " + user.email)
-                            Text(modifier= Modifier.fillMaxWidth(),
-                                text = "Phone: " + user.phone,
-                                textAlign = TextAlign.Left, color = Color.Gray, fontSize = 20.sp, fontStyle = FontStyle.Italic,
-                                style = androidx.compose.ui.text.TextStyle(
-                                    brush = Brush.linearGradient(
-                                        colors = gradientColors
-                                    )
-                                )
-                            )
-                        }
-                    }
-                }*/
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
+                // Log a custom event to Firebase Analytics
+                firebaseAnalytics.logEvent("crash_button_clicked") {
+                    param("screen_name", "UsersApp")
+                    param("enviar_evento", "Evento enviado")
+                }
+
             }
+        ) {
+            Text("Enviar Evento")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(
+            onClick = {
+                // Genera una excepción no controlada para forzar el crash
+                throw RuntimeException("¡Este es un crash provocado!")
+            }
+        ) {
+            Text("Provocar Crash")
         }
     }
+
 }

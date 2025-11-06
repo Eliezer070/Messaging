@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.firebase)
+    alias(libs.plugins.kotlin.crashlytics)
 }
 
 android {
@@ -45,8 +46,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.firebaseboom)
-    implementation(libs.androidx.messagin)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.google.firebase.messagin)
+    implementation(libs.google.firebase.crashlytics)
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.google.firebase.messagin)
+    implementation(libs.google.firebase.config)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
