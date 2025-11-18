@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.google.firebase.crashlytics)
     implementation(libs.google.firebase.analytics)
     implementation(libs.google.firebase.messagin)
+    implementation(libs.google.firebase.firestore)
     implementation(libs.google.firebase.config)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)

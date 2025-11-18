@@ -8,7 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.eas.pushnotificationdemo.screens.StudentForm
 import com.eas.pushnotificationdemo.screens.UsersApp
 import com.eas.pushnotificationdemo.ui.theme.PushNotificationDemoTheme
 import com.google.firebase.Firebase
@@ -93,8 +97,13 @@ fun MainContent(showSpecialFeature: Boolean, innerPadding: PaddingValues, modifi
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // El componente principal de tu app
-        UsersApp(showSpecialFeature)
+        // --- REEMPLAZAMOS UsersApp POR EL NUEVO FORMULARIO ---
+        StudentForm()
 
+        // Puedes mantener la funcionalidad de Remote Config si quieres
+        /*if (showSpecialFeature) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "¡Funcionalidad especial activada desde Remote Config!")
+        }*/
     }
 }
